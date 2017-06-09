@@ -9,8 +9,7 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --data '{
     "player": {
-      "name": "not acon",
-      "user_id": "2"
+      "name": "test"
     }
   }'
 

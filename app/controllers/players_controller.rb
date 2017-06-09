@@ -3,8 +3,8 @@ class PlayersController < OpenReadController
 
   # GET /players
   def index
-    @players = Player.all
-
+    @current_user_id = current_user.id
+    @players = Player.where(user_id: @current_user_id)
     render json: @players
   end
 
@@ -15,7 +15,7 @@ class PlayersController < OpenReadController
 
   # POST /players
   def create
-    @player = Player.new(create_player_params)
+    @player = current_user.players.build(create_player_params)
 
     if @player.save
       render json: @player, status: :created, location: @player
@@ -26,7 +26,6 @@ class PlayersController < OpenReadController
 
   # PATCH/PUT /players/1
   def update
-
     if @player.update(player_params)
       render json: @player
     else

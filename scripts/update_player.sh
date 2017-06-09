@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/players/5"
+URL_PATH="/players/10"
 curl "${API}${URL_PATH}" \
   --include \
   --request PATCH \
