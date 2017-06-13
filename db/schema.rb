@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613130528) do
+ActiveRecord::Schema.define(version: 20170613140942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(version: 20170613130528) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
-    t.integer  "number_hands", default: 0
-    t.integer  "vpip",         default: 0
-    t.integer  "pfr",          default: 0
-    t.integer  "3b",           default: 0
-    t.integer  "f3b",          default: 0
+    t.integer  "hand_count",              default: 0
+    t.integer  "call_preflop",            default: 0
+    t.integer  "raise_preflop",           default: 0
+    t.integer  "call_or_raise_preflop",   default: 0
+    t.integer  "reraise_preflop",         default: 0
     t.integer  "user_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "call_to_reraise_preflop", default: 0
+    t.integer  "fold_on_reraise_preflop", default: 0
     t.index ["user_id"], name: "index_players_on_user_id", using: :btree
   end
 
