@@ -47,7 +47,17 @@ class PlayersController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def player_params
-      params.require(:player).permit(:name, :vpip, :pfr, :"3b", :f3b, :number_hands, :user_id)
+      params.require(:player).permit(
+        :id,
+        :name,
+        :hand_count,
+        :call_preflop,
+        :raise_preflop,
+        :call_or_raise_preflop,
+        :reraise_preflop,
+        :call_to_reraise_preflop,
+        :fold_on_reraise_preflop,
+        :user_id)
     end
 
     def create_player_params
