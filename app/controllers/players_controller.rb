@@ -1,5 +1,6 @@
 class PlayersController < OpenReadController
-  before_action :set_player, only: [:update, :destroy]
+  before_action :set_player, only: [:destroy]
+  # before_action :set_player_update, only: [:update]
 
   # GET /players
   def index
@@ -13,23 +14,25 @@ class PlayersController < OpenReadController
   #   render json: @player
   # end
 
-  # POST /players
-  def create
-    @player = current_user.players.build(create_player_params)
-
-    if @player.save
-      render json: @player, status: :created, location: @player
-    else
-      render json: @player.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /players/1
+  # POST /players/save
   def update
-    if @player.update(player_params)
-      render json: @player
+    @name = params[:player][:name]
+    if current_user.players.exists?(name: @name)
+      p 'this fired'
+      @player_update = current_user.players.where(name: @name)
+      if @player_update.update(player_params_save)
+        render json: @player_update
+      else
+        render json: @player_update.errors, status: :unprocessable_entity
+      end
     else
-      render json: @player.errors, status: :unprocessable_entity
+      p 'that fired'
+      @player = current_user.players.build(create_player_params)
+      if @player.save
+        render json: @player, status: :created, location: @player
+      else
+        render json: @player.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -46,21 +49,18 @@ class PlayersController < OpenReadController
     end
 
     # Only allow a trusted parameter "white list" through.
-    def player_params
+    def player_params_save
       params.require(:player).permit(
-        :id,
-        :name,
         :hand_count,
         :call_preflop,
         :raise_preflop,
         :call_or_raise_preflop,
         :reraise_preflop,
         :call_to_reraise_preflop,
-        :fold_on_reraise_preflop,
-        :user_id)
+        :fold_on_reraise_preflop)
     end
 
     def create_player_params
-      params.require(:player).permit(:name, :user_id)
+      params.require(:player).permit(:name)
     end
 end

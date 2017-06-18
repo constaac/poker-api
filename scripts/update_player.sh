@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/players/10"
+URL_PATH="/players/save"
 curl "${API}${URL_PATH}" \
   --include \
   --request PATCH \
@@ -9,7 +9,8 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --data '{
     "player": {
-      "name": "updated with account 1 key"
+      "name": "Your Boy",
+      "hand_count": "4"
     }
   }'
 
