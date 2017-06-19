@@ -20,6 +20,16 @@ class PlayersController < OpenReadController
     end
   end
 
+  # POST /players/create
+  def create
+    @player = current_user.players.build(player_params_create)
+    if @player.save
+      render json: @player, status: :created, location: @player
+    else
+      render json: @player.errors, status: :unprocessable_entity
+    end
+  end
+
   # POST /players/save
   def update
     @name = params[:player][:name]
@@ -63,5 +73,9 @@ class PlayersController < OpenReadController
         :reraise_preflop,
         :call_to_reraise_preflop,
         :fold_on_reraise_preflop)
+    end
+
+    def player_params_create
+      params.require(:player).permit(:name)
     end
 end

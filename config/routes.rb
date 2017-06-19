@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/sign-up' => 'users#signup'
   patch '/players/save' => 'players#update'
   patch '/player' => 'players#show'
+  post '/players/create' => 'players#create'
   post '/sign-in' => 'users#signin'
   delete '/sign-out/:id' => 'users#signout'
   patch '/change-password/:id' => 'users#changepw'
