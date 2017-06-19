@@ -24,16 +24,14 @@ class PlayersController < OpenReadController
   def update
     @name = params[:player][:name]
     if current_user.players.exists?(name: @name)
-      p 'this fired'
-      @player_update = current_user.players.where(name: @name)
+      @player_update = current_user.players.find_by_name(@name)
       if @player_update.update(player_params_save)
         render json: @player_update
       else
         render json: @player_update.errors, status: :unprocessable_entity
       end
     else
-      p 'that fired'
-      @player = current_user.players.build(create_player_params)
+      @player = current_user.players.build(player_params_save)
       if @player.save
         render json: @player, status: :created, location: @player
       else
@@ -57,6 +55,7 @@ class PlayersController < OpenReadController
     # Only allow a trusted parameter "white list" through.
     def player_params_save
       params.require(:player).permit(
+        :name,
         :hand_count,
         :call_preflop,
         :raise_preflop,
@@ -64,9 +63,5 @@ class PlayersController < OpenReadController
         :reraise_preflop,
         :call_to_reraise_preflop,
         :fold_on_reraise_preflop)
-    end
-
-    def create_player_params
-      params.require(:player).permit(:name)
     end
 end

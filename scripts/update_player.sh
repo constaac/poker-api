@@ -9,7 +9,14 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --data '{
     "player": {
-      "name": "Your Boy"
+      "name": "not taken",
+      "call_or_raise_preflop": "5",
+      "call_preflop": "5",
+      "call_to_reraise_preflop": "5",
+      "fold_on_reraise_preflop": "5",
+      "hand_count": "10",
+      "raise_preflop": "5",
+      "reraise_preflop": "5"
     }
   }'
 
