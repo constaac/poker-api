@@ -9,10 +9,16 @@ class PlayersController < OpenReadController
     render json: @players
   end
 
-  # # GET /players/1
-  # def show
-  #   render json: @player
-  # end
+  # PATCH /player
+  def show
+    @name = params[:player][:name]
+    @player = current_user.players.find_by(name: @name)
+    if current_user.players.exists?(name: @name)
+      render json: @player
+    else
+      render status: 404
+    end
+  end
 
   # POST /players/save
   def update

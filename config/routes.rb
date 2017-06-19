@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :examples, except: [:new, :edit]
   post '/sign-up' => 'users#signup'
   patch '/players/save' => 'players#update'
+  patch '/player' => 'players#show'
   post '/sign-in' => 'users#signin'
   delete '/sign-out/:id' => 'users#signout'
   patch '/change-password/:id' => 'users#changepw'

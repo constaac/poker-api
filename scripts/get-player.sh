@@ -1,10 +1,16 @@
 #!/bin/bash
 
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/players/$NAME"
+URL_PATH="/player"
 curl "${API}${URL_PATH}" \
   --include \
-  --request GET \
-  --header "Authorization: Token token=$TOKEN"
+  --request PATCH \
+  --header "Authorization: Token token=$TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "player": {
+      "name": "Peaks"
+    }
+  }'
 
 echo
