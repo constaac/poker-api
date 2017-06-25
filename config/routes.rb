@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
   resources :players, only: [:index, :destroy]
-  resources :examples, except: [:new, :edit]
+  # resources :examples, except: [:new, :edit]
   post '/sign-up' => 'users#signup'
   patch '/players/save' => 'players#update'
   patch '/player' => 'players#show'
